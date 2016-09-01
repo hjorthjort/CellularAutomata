@@ -48,7 +48,16 @@ main = function() {
     ca.Automaton.prototype.getState = function() {
         return this.state;
     }
-    
+
+    // Create Wolfram rules.
+
+    ca.RuleGenerator = function(rule_number) {
+        return function(l, c, r) {
+            var state = l * 4 + c * 2 + r;
+            return (rule_number >> state) & 1;
+        }
+    }
+
     // Expose functions.
 
     window.ca = ca;
