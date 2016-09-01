@@ -3,6 +3,8 @@ main = function() {
     // Create new namespace.
     var ca = {};
 
+    // Painter class.
+
     ca.Painter = function() {
         this.canvas = document.getElementById('canvas');
         this.canvas_context = this.canvas.getContext('2d');
@@ -25,9 +27,31 @@ main = function() {
     };
 
     ca.painter = new ca.Painter();
+
+    // Automaton class.
+
+    ca.Automaton = function(rule, initial_arr) {
+        this.state = initial_arr;
+        this.rule = rule;
+    }
+
+    ca.Automaton.prototype.nextState = function() {
+        var newState = [];
+        newState.push(0);
+        for (var i = 1; i < this.state.length - 1; i++)
+            newState.push(this.rule(this.state[i-1], this.state[i], this.state[i+1]));
+        newState.push(0);
+        this.state = newState;
+        return this.state;
+    }
+
+    ca.Automaton.prototype.getState = function() {
+        return this.state;
+    }
     
     // Expose functions.
-    window.paintCell = ca.painter.paintCell_.bind(ca.painter);
+
+    window.ca = ca;
 
 }; // End main closure.
 main();
