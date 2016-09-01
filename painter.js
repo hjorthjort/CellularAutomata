@@ -58,6 +58,22 @@ main = function() {
         }
     }
 
+    // Main program.
+    
+    ca.Main = function(length, rule_nbr) {
+        var initial = [];
+        for (var i = 0; i < length; i++) {
+            initial.push(0);
+        }
+        initial[length/2] = 1;
+        this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
+        console.log(initial);
+        var max_width = length/2;
+        for (var i = 0; i < max_width; i++) {
+            console.log(this.automaton.nextState());
+        }
+    }
+
     // Expose functions.
 
     window.ca = ca;
