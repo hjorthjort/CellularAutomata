@@ -12,7 +12,6 @@ main = function() {
         this.Constants_ = {
             CANVAS_WIDTH_PX: 1000,
             CANVAS_HEIGHT_PX: 1000,
-            CELL_SIDE_PX: 2,
             CELL_DEFAULT_COLOR: 'black',
         };
 
@@ -21,12 +20,9 @@ main = function() {
     }; // End constructor.
 
     ca.Painter.prototype.paintCell_ = function(x, y, color) {
-        x = x / this.Constants_.CELL_SIDE_PX;
-        y = y / this.Constants_.CELL_SIDE_PX;
         color = color ? color : this.Constants_.CELL_DEFAULT_COLOR;
         this.canvas_context.fillStyle = color;
-        this.canvas_context.fillRect(x, y, 
-            this.Constants_.CELL_SIDE_PX, this.Constants_.CELL_SIDE_PX);
+        this.canvas_context.fillRect(x, y, 1, 1);
     };
 
     ca.Painter.prototype.clear = function() {
