@@ -69,9 +69,9 @@ main = function() {
         }
     }
 
-    // Main program.
+    // Simulator program.
     
-    ca.Main = function(length, rule_nbr) {
+    ca.Simulator = function(length, rule_nbr) {
         this.current_row = 0;
         var initial = [];
         for (var i = 0; i < length; i++) {
@@ -79,17 +79,16 @@ main = function() {
         }
         initial[length/2] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
-        console.log(initial);
         this.max_width = length/2;
     }
 
-    ca.Main.prototype.VALUE_TO_COLOR_MAP = ['white', 'black'];
+    ca.Simulator.prototype.VALUE_TO_COLOR_MAP = ['white', 'black'];
 
-    ca.Main.prototype.paintNext = function() {
+    ca.Simulator.prototype.paintNext = function() {
         this.paintRow(this.automaton.nextState());
     }
 
-    ca.Main.prototype.paintRow = function(array) {
+    ca.Simulator.prototype.paintRow = function(array) {
         if (this.current_row > this.max_width)
             throw new Error('Automata size overflowed');
         var painted = false;
@@ -103,7 +102,7 @@ main = function() {
             this.current_row++;
     }
 
-    ca.Main.prototype.clear = function () {
+    ca.Simulator.prototype.clear = function () {
         ca.painter.clear();
         this.current_row = 0;
     }
