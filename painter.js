@@ -107,7 +107,16 @@ main = function() {
         this.current_row = 0;
     }
 
-    // Expose functions.
+    // Exposed functions.
+    ca.run = function() {
+        var width = document.getElementById('width_cells').value;
+        var rule_nbr = document.getElementById('rule_number').value;
+        var sim = new ca.Simulator(width, rule_nbr);
+        for (var i = 0; i < width / 2; i++)
+            sim.paintNext();
+        // Don't reload page.
+        return false;
+    };
 
     window.ca = ca;
 

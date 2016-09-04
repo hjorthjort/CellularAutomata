@@ -6,6 +6,12 @@
     </head>
     <neck></neck>
     <body>
+        <label value="Width (number of cells)"></label>
+        <input id="width_cells" type="number" value="1000"></input>
+        <label value="Rule number"></label>
+        <input id="rule_number" type="number" value="110" min-value="0" max-value="255"></input>
+        <input type="button" value="Run" onclick="ca.run()"></input>
+
         <canvas id='canvas'></canvas>
         <script src='painter.js'></script>
         <script src='painter_test.js'></script>
