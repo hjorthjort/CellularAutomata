@@ -29,6 +29,10 @@ main = function() {
             this.Constants_.CELL_SIDE_PX, this.Constants_.CELL_SIDE_PX);
     };
 
+    ca.Painter.prototype.clear = function() {
+        this.canvas_context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
     ca.painter = new ca.Painter();
 
     // Automaton class.
@@ -91,6 +95,11 @@ main = function() {
             x++;
         }
         this.current_row++;
+    }
+
+    ca.Main.prototype.clear = function () {
+        ca.painter.clear();
+        this.current_row = 0;
     }
 
     // Expose functions.
