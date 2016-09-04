@@ -29,6 +29,14 @@ main = function() {
         this.canvas_context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    ca.Painter.prototype.getCanvasWidth = function() {
+        return this.canvas.width;
+    }
+
+    ca.Painter.prototype.getCanvasHeight = function() {
+        return this.canvas.height;
+    }
+
     ca.painter = new ca.Painter();
 
     // Automaton class.
@@ -84,13 +92,15 @@ main = function() {
     ca.Main.prototype.paintRow = function(array) {
         if (this.current_row > this.max_width)
             throw new Error('Automata size overflowed');
-        var x = 0;
-        for (var i in array) {
+        var painted = false;
+        var canvas_width = ca.painter.getCanvasWidth();
+        for (var i = 0; i < array.length && i <= canvas_width; i++) {
+            painted = painted | array[i];
             var color = this.VALUE_TO_COLOR_MAP[array[i]];
-            ca.painter.paintCell_(x, this.current_row, color);
-            x++;
+            ca.painter.paintCell_(i, this.current_row, color);
         }
-        this.current_row++;
+        if (painted)
+            this.current_row++;
     }
 
     ca.Main.prototype.clear = function () {
