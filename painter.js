@@ -21,7 +21,10 @@ main = function() {
     }; // End constructor.
 
     ca.Painter.prototype.paintCell_ = function(x, y, color) {
-        this.canvas_context.fillStyle = this.Constants_.CELL_DEFAULT_COLOR;
+        x = x / this.Constants_.CELL_SIDE_PX;
+        y = y / this.Constants_.CELL_SIDE_PX;
+        color = color ? color : this.Constants_.CELL_DEFAULT_COLOR;
+        this.canvas_context.fillStyle = color;
         this.canvas_context.fillRect(x, y, 
             this.Constants_.CELL_SIDE_PX, this.Constants_.CELL_SIDE_PX);
     };
@@ -61,6 +64,7 @@ main = function() {
     // Main program.
     
     ca.Main = function(length, rule_nbr) {
+        this.current_row = 0;
         var initial = [];
         for (var i = 0; i < length; i++) {
             initial.push(0);
@@ -68,10 +72,25 @@ main = function() {
         initial[length/2] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
         console.log(initial);
-        var max_width = length/2;
-        for (var i = 0; i < max_width; i++) {
-            console.log(this.automaton.nextState());
+        this.max_width = length/2;
+    }
+
+    ca.Main.prototype.VALUE_TO_COLOR_MAP = ['white', 'black'];
+
+    ca.Main.prototype.paintNext = function() {
+        this.paintRow(this.automaton.nextState());
+    }
+
+    ca.Main.prototype.paintRow = function(array) {
+        if (this.current_row > this.max_width)
+            throw new Error('Automata size overflowed');
+        var x = 0;
+        for (var i in array) {
+            var color = this.VALUE_TO_COLOR_MAP[array[i]];
+            ca.painter.paintCell_(x, this.current_row, color);
+            x++;
         }
+        this.current_row++;
     }
 
     // Expose functions.
