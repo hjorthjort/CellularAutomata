@@ -10,14 +10,14 @@ main = function() {
         this.canvas_context = this.canvas.getContext('2d');
 
         this.Constants_ = {
-            ACTUAL_WIDTH_PX: 1000,
-            ACTUAL_HEIGHT_PX: 1000,
+            CANVAS_WIDTH_PX: 1000,
+            CANVAS_HEIGHT_PX: 1000,
             CELL_SIDE_PX: 2,
             CELL_DEFAULT_COLOR: 'black',
         };
 
-        this.canvas.width = this.Constants_.ACTUAL_WIDTH_PX;
-        this.canvas.height = this.Constants_.ACTUAL_HEIGHT_PX;
+        this.canvas.width = this.Constants_.CANVAS_WIDTH_PX;
+        this.canvas.height = this.Constants_.CANVAS_HEIGHT_PX;
     }; // End constructor.
 
     ca.Painter.prototype.paintCell_ = function(x, y, color) {
