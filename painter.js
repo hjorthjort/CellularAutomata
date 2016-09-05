@@ -1,5 +1,5 @@
 main = function() {
-    
+
     // Create new namespace.
     var ca = {};
 
