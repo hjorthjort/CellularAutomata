@@ -83,6 +83,7 @@ main = function() {
             initial[opt_start_cells[i]] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
         this.max_width = length/2;
+        this.paintRow(initial);
     }
 
     ca.Simulator.prototype.VALUE_TO_COLOR_MAP = ['white', 'black'];
@@ -112,6 +113,8 @@ main = function() {
 
     // Exposed functions.
     ca.run = function() {
+        ca.painter.clear();
+        ca.painter.canvas_context.fillText("Simulating..", 1, 1);
         var width = document.getElementById('width_cells').value;
         try {
             var start_cells = document.getElementById('start_cells').value.split(',');
@@ -127,8 +130,6 @@ main = function() {
         var sim = new ca.Simulator(width, rule_nbr, start_cells);
         for (var i = 0; i < width / 2; i++)
             sim.paintNext();
-        // Don't reload page.
-        return false;
     };
 
     window.ca = ca;
