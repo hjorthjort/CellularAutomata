@@ -5,18 +5,22 @@ main = function() {
 
     // Painter class.
 
-    ca.Painter = function() {
+    ca.Painter = function(opt_width_cells, opt_height_cells) {
         this.canvas = document.getElementById('canvas');
         this.canvas_context = this.canvas.getContext('2d');
 
         this.Constants_ = {
-            CANVAS_WIDTH_PX: 1000,
-            CANVAS_HEIGHT_PX: 1000,
+            CANVAS_DEFAULT_WIDTH_PX: 1000,
+            CANVAS_DEFAULT_HEIGHT_PX: 1000,
             CELL_DEFAULT_COLOR: 'black',
         };
 
-        this.canvas.width = this.Constants_.CANVAS_WIDTH_PX;
-        this.canvas.height = this.Constants_.CANVAS_HEIGHT_PX;
+        var width_cells = opt_width_cells ? opt_width_cells : this.Constants_.CANVAS_DEFAULT_WIDTH_PX;
+        var height_cells = opt_height_cells ? opt_height_cells : this.Constants_.CANVAS_DEFAULT_HEIGHT_PX;
+
+        this.canvas.width = width_cells;
+        this.canvas.height = height_cells;
+        this.canvas.style.height = (height_cells / width_cells) + "00%";
     }; // End constructor.
 
     ca.Painter.prototype.paintCell_ = function(x, y, color) {
@@ -36,8 +40,6 @@ main = function() {
     ca.Painter.prototype.getCanvasHeight = function() {
         return this.canvas.height;
     }
-
-    ca.painter = new ca.Painter();
 
     // Automaton class.
 
@@ -70,19 +72,19 @@ main = function() {
     }
 
     // Simulator program.
-    
-    ca.Simulator = function(length, rule_nbr, opt_start_cells) {
+
+    ca.Simulator = function(rule_nbr, width_cells, height_cells, opt_start_cells) {
         this.current_row = 0;
+        this.painter = new ca.Painter(width_cells, height_cells);
         var initial = [];
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < width_cells; i++) {
             initial.push(0);
         }
-        if (!opt_start_cells) 
-            opt_start_cells = [length/2];
+        if (!opt_start_cells)
+            opt_start_cells = [width_cells/2];
         for (var i in opt_start_cells)
             initial[opt_start_cells[i]] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
-        this.max_width = length/2;
         this.paintRow(initial);
     }
 
@@ -93,21 +95,21 @@ main = function() {
     }
 
     ca.Simulator.prototype.paintRow = function(array) {
-        if (this.current_row > this.max_width)
-            throw new Error('Automata size overflowed');
+        if (this.current_row > this.painter.getCanvasHeight())
+            throw new Error('Too many rows');
         var painted = false;
-        var canvas_width = ca.painter.getCanvasWidth();
+        var canvas_width = this.painter.getCanvasWidth();
         for (var i = 0; i < array.length && i <= canvas_width; i++) {
             painted = painted | array[i];
             var color = this.VALUE_TO_COLOR_MAP[array[i]];
-            ca.painter.paintCell_(i, this.current_row, color);
+            this.painter.paintCell_(i, this.current_row, color);
         }
         if (painted)
             this.current_row++;
     }
 
     ca.Simulator.prototype.clear = function () {
-        ca.painter.clear();
+        this.painter.clear();
         this.current_row = 0;
     }
 
@@ -116,6 +118,7 @@ main = function() {
         ca.painter.clear();
         ca.painter.canvas_context.fillText("Simulating..", 1, 1);
         var width = document.getElementById('width_cells').value;
+        var height = document.getElementById('height_cells').value;
         try {
             var start_cells = document.getElementById('start_cells').value.split(',');
             for (var i in start_cells) {
@@ -127,7 +130,7 @@ main = function() {
             console.error("Invalid start cell value: " + e.message);
         }
         var rule_nbr = document.getElementById('rule_number').value;
-        var sim = new ca.Simulator(width, rule_nbr, start_cells);
+        var sim = new ca.Simulator(rule_nbr, width, height, start_cells);
         for (var i = 0; i < width / 2; i++)
             sim.paintNext();
     };
