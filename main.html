@@ -6,11 +6,15 @@
     </head>
     <neck></neck>
     <body>
-        <label value="Width (number of cells)"></label>
-        <input id="width_cells" type="number" value="1000"></input>
-        <label value="Rule number"></label>
-        <input id="rule_number" type="number" value="110" min-value="0" max-value="255"></input>
-        <input type="button" value="Run" onclick="ca.run()"></input>
+        <form onsubmit="ca.run(); return false;">
+            <label for="width_cells">Width (number of cells)</label>
+            <input id="width_cells" type="number" value="1000"></input>
+            <label for="start_cells">Start cell(s)</label>
+            <input id="start_cells" type="text" value="500"></input>
+            <label for="rule_number">Rule number</label>
+            <input id="rule_number" type="number" value="110" min-value="0" max-value="255"></input>
+            <input type="submit" value="Run"></input>
+        </form>
 
         <canvas id='canvas'></canvas>
         <script src='painter.js'></script>

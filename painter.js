@@ -71,13 +71,16 @@ main = function() {
 
     // Simulator program.
     
-    ca.Simulator = function(length, rule_nbr) {
+    ca.Simulator = function(length, rule_nbr, opt_start_cells) {
         this.current_row = 0;
         var initial = [];
         for (var i = 0; i < length; i++) {
             initial.push(0);
         }
-        initial[length/2] = 1;
+        if (!opt_start_cells) 
+            opt_start_cells = [length/2];
+        for (var i in opt_start_cells)
+            initial[opt_start_cells[i]] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
         this.max_width = length/2;
     }
@@ -110,8 +113,18 @@ main = function() {
     // Exposed functions.
     ca.run = function() {
         var width = document.getElementById('width_cells').value;
+        try {
+            var start_cells = document.getElementById('start_cells').value.split(',');
+            for (var i in start_cells) {
+                start_cells[i] = parseInt(start_cells[i].trim());
+                if (start_cells[i] > width)
+                    throw new Error("Cell number too high");
+            }
+        } catch (e) {
+            console.error("Invalid start cell value: " + e.message);
+        }
         var rule_nbr = document.getElementById('rule_number').value;
-        var sim = new ca.Simulator(width, rule_nbr);
+        var sim = new ca.Simulator(width, rule_nbr, start_cells);
         for (var i = 0; i < width / 2; i++)
             sim.paintNext();
         // Don't reload page.
