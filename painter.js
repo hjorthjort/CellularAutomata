@@ -113,10 +113,13 @@ main = function() {
         this.current_row = 0;
     }
 
+    ca.Simulator.prototype.simulate = function() {
+        while (this.current_row <= this.painter.getCanvasHeight())
+            this.paintNext();
+    }
+
     // Exposed functions.
     ca.run = function() {
-        ca.painter.clear();
-        ca.painter.canvas_context.fillText("Simulating..", 1, 1);
         var width = document.getElementById('width_cells').value;
         var height = document.getElementById('height_cells').value;
         try {
@@ -126,13 +129,13 @@ main = function() {
                 if (start_cells[i] > width)
                     throw new Error("Cell number too high");
             }
+            var rule_nbr = document.getElementById('rule_number').value;
+            var sim = new ca.Simulator(rule_nbr, width, height, start_cells);
+            sim.clear();
+            sim.simulate();
         } catch (e) {
             console.error("Invalid start cell value: " + e.message);
         }
-        var rule_nbr = document.getElementById('rule_number').value;
-        var sim = new ca.Simulator(rule_nbr, width, height, start_cells);
-        for (var i = 0; i < width / 2; i++)
-            sim.paintNext();
     };
 
     window.ca = ca;
