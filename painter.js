@@ -20,7 +20,7 @@ main = function() {
 
         this.canvas.width = width_cells;
         this.canvas.height = height_cells;
-        this.canvas.style.height = (height_cells / width_cells) + "00%";
+        this.canvas.style.height = 100 * (height_cells / width_cells) + "%";
     }; // End constructor.
 
     ca.Painter.prototype.paintCell_ = function(x, y, color) {
