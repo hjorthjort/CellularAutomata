@@ -65,6 +65,8 @@ main = function() {
     // Create Wolfram rules.
 
     ca.RuleGenerator = function(rule_number) {
+        if (rule_number < 0 || rule_number > 255)
+            throw new Error("Rule must be between 0 and 255.");
         return function(l, c, r) {
             var state = l * 4 + c * 2 + r;
             return (rule_number >> state) & 1;
@@ -134,7 +136,7 @@ main = function() {
             sim.clear();
             sim.simulate();
         } catch (e) {
-            console.error("Invalid start cell value: " + e.message);
+            console.error("Runtime error: " + e.message);
         }
     };
 
