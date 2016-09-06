@@ -99,6 +99,31 @@ ca.testing.tests.automaton_tests.tests.test_rule_generator = function() {
     return true;
 };
 
+ca.testing.tests.automaton_tests.tests.next_state_test = function() {
+    debugger;
+    var verify_identical = function(array1, array2) {
+        if (array1.length != array2.length)
+            return false;
+        for (var i = 0; i < array1.length; i++)
+            if (array1[i] != array2[i])
+                return false;
+        return true;
+    }
+    var rule10correct = [
+        [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+    ];
+    var automaton = new ca.Automaton(new ca.RuleGenerator(10), rule10correct[0]);
+    for (var i = 0; i < rule10correct.length; i++) {
+        if (!verify_identical(rule10correct[i], automaton.getState()))
+            return false;
+        automaton.nextState();
+    }
+    return true;
+}
+
 // Run all tests.
 var test_results = ca.testing.run_tests(ca.testing.tests);
 if (test_results.passed)
