@@ -134,6 +134,8 @@ ca.testing.tests.automaton_tests.tests.next_state_test = function() {
 }
 
 // Run all tests.
+var global_variables_before = Object.keys(window);
+
 var test_results = ca.testing.run_tests(ca.testing.tests);
 if (test_results.passed)
     console.log("Passed " + Object.keys(test_results.passed).length + ": ",
@@ -143,3 +145,6 @@ if (test_results.failed)
         test_results.failed);
 if (!test_results.passed && !test_results.failed)
     console.log("No tests were run.");
+var global_variables_after = Object.keys(window);
+ca.testing.assertArrayEqual(global_variables_before, global_variables_after,
+    "The testing has leaked variables to global scope");
