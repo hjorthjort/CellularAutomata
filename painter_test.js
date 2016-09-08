@@ -12,6 +12,13 @@ ca.testing.assertEqual = function(obj1, obj2, opt_message) {
         throw new ca.testing.AssertionError(opt_message);
 }
 
+ca.testing.assertArrayEqual = function(arr1, arr2, opt_message) {
+    if (arr1.length !== arr2.length)
+        throw new ca.testing.AssertionError(opt_message);
+    for (var i = 0; i < arr1.length; i++)
+        ca.testing.assertEqual(arr1[i], arr2[i], opt_message);
+}
+
 ca.testing.TestResult = function() {};
 
 ca.testing.run_tests = function(test_collection, opt_name) {
