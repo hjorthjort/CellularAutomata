@@ -67,7 +67,7 @@ ca.testing.run_tests = function(test_collection, opt_name) {
     if (fails)
         ret.failed = failed;
     return ret;
-}
+};
 
 // Unit tests
 ca.testing.tests = {};
@@ -133,7 +133,6 @@ ca.testing.tests.automaton_tests.tests.test_rule_generator = function() {
 };
 
 ca.testing.tests.automaton_tests.tests.next_state_test = function() {
-    debugger;
     var verify_identical = function(array1, array2) {
         if (array1.length != array2.length)
             return false;
