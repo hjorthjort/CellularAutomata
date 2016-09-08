@@ -72,6 +72,30 @@ ca.testing.run_tests = function(test_collection, opt_name) {
 // Unit tests
 ca.testing.tests = {};
 
+// Unit testing on the test framework.
+ca.testing.tests.framework_tests = function() {
+    return ca.testing.run_tests(ca.testing.tests.framework_tests.tests, "TestingFrameworkTests")
+};
+
+ca.testing.tests.framework_tests.tests = {};
+
+ca.testing.tests.framework_tests.tests.assert_test = function() {
+    var return_false_func = function() { return false; }
+    // Things that should pass assertion.
+    var passes = [true, -1, 1.23, "false", "0", "null", new Object(), Function, ca.testing.tests.framework_tests.tests.assert_test, return_false_func];
+    for (var i in passes)
+        ca.testing.assert(passes[i]);
+
+    // Things that should not pass
+    var fails = [0, false, null, undefined, ""];
+    for (var i in fails)
+        try {
+            ca.testing.assert(fails[i]);
+            return false;
+        } catch (e) {}
+    return true;
+};
+
 // Run all automaton tests
 ca.testing.tests.automaton_tests = function() {
     return ca.testing.run_tests(ca.testing.tests.automaton_tests.tests, "AutomatonTests");
