@@ -15,7 +15,9 @@ ca.testing.assertEqual = function(obj1, obj2, opt_message) {
 ca.testing.TestResult = function() {};
 
 ca.testing.run_tests = function(test_collection, opt_name) {
-    var register = function(pass_or_fail, test_name, test) {
+    var register = function(pass_or_fail, test_name, test, opt_message) {
+        if (opt_message)
+            test = { "test": test, "message": opt_message };
         if (pass_or_fail == 'pass') {
             passed[test_name] = test;
             passes = true;
@@ -47,7 +49,7 @@ ca.testing.run_tests = function(test_collection, opt_name) {
             else
                 register('fail', test_name, func);
         } catch (e) {
-            register('fail', test_name, func);
+            register('fail', test_name, func, e.message);
         }
     }
     var ret = new ca.testing.TestResult();
