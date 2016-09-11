@@ -120,4 +120,3 @@ ca = function() {
 
     return ca;
 };
-ca();
