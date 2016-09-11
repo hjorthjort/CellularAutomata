@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+}
+
+#main {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#main_window {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}

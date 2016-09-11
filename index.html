@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <title></title>
+        <script>
+main = {};
+main.constants = {};
+main.constants.MAIN_WINDOW = "main_window";
+main.constants.CELLULAR_AUTOMATA = "CellularAutomata/index.html";
+main.constants.TURING_MACHINES = "TuringMachines/index.html";
+main.setFrameSrc = function(src) {
+    document.getElementById(main.constants.MAIN_WINDOW).src = src;
+};
+window.main = main;
+        </script>
+    </head>
+    <body>
+        <input type="button" value="Cellular Automata" onclick="main.setFrameSrc(main.constants.CELLULAR_AUTOMATA);"></input>
+        <input type="button" value="Turing Machines" onclick="main.setFrameSrc(main.constants.TURING_MACHINES);"></input>
+        <div id="main">
+            <iframe id="main_window" src="CellularAutomata/index.html">
+        </div>
+
+    </body>
+</html>
