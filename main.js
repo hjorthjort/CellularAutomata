@@ -8,7 +8,12 @@ main = function() {
     main.constants = {};
     main.constants.CONTROLS = "controls";
     main.constants.CONTROLS_PREFIX = "control_";
+    main.constants.LABELS_PREFIX = "label_";
+
     main.load_module = function(module) {
+        // Clear out old controls.
+        main.clear_controls();
+
         module_namespace = module();
         main.module = module_namespace;
         main.module.load();
@@ -23,14 +28,16 @@ main = function() {
     };
 
     main.add_control = function(name, label_text, type, opt_default_value) {
-        var prefixed_name = main.constants.CONTROLS_PREFIX + name;
+        var label_name = main.constants.LABELS_PREFIX + name;
+        var control_name = main.constants.CONTROLS_PREFIX + name;
         var label = document.createElement("label");
-        label.for = prefixed_name;
+        label.id = label_name;
+        label.for = control_name;
         label.innerHTML = label_text;
         document.getElementById("controls").appendChild(label);
 
         var input = document.createElement("input");
-        input.id = prefixed_name;
+        input.id = control_name;
         input.type = type;
         input.value = opt_default_value;
         document.getElementById("controls").appendChild(input);
@@ -40,6 +47,17 @@ main = function() {
     main.add_control_attribute = function(control_id, attribute, value) {
         control_id = main.constants.CONTROLS_PREFIX + control_id;
         document.getElementById(control_id)[attribute] = value;
+    };
+
+    main.clear_controls = function() {
+        for (var key in main.controls) {
+            var controls = document.getElementById(main.constants.CONTROLS);
+            var control_to_delete = document.getElementById(main.constants.CONTROLS_PREFIX + key);
+            var label_to_delete = document.getElementById(main.constants.LABELS_PREFIX + key);
+            controls.removeChild(control_to_delete);
+            controls.removeChild(label_to_delete);
+        }
+        main.controls = {};
     };
 
     // Painter class.
