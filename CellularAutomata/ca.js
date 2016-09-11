@@ -1,5 +1,24 @@
 ca = function() {
 
+    var ca = {};
+
+    ca.controls = {};
+
+    ca.controls.WIDTH = 'width_cells';
+    ca.controls.HEIGHT = 'height_cells';
+    ca.controls.START_CELLS = 'start_cells';
+    ca.controls.RULE = 'rule_number';
+    // Load function.
+
+    ca.load = function() {
+        main.add_control(ca.controls.WIDTH, "Width (number of cells)", "number", 1000);
+        main.add_control(ca.controls.HEIGHT, "Height (number of cells)", "number", 1000);
+        main.add_control(ca.controls.START_CELLS, "Start cell(s)", "number", 500);
+        main.add_control(ca.controls.RULE, "Rule number", "number", 110);
+        main.add_control_attribute(ca.controls.RULE, "min-value", "0");
+        main.add_control_attribute(ca.controls.RULE, "max-value", "255");
+    };
+
     // Automaton class.
 
     ca.Automaton = function(rule, initial_arr) {
@@ -80,17 +99,17 @@ ca = function() {
     }
     
     // Exposed functions.
-    ca.run = function() {
-        var width = document.getElementById('width_cells').value;
-        var height = document.getElementById('height_cells').value;
+    ca.run = function(controls_values) {
+        var width = controls_values[ca.controls.WIDTH];
+        var height = controls_values[ca.controls.HEIGHT];
         try {
-            var start_cells = document.getElementById('start_cells').value.split(',');
+            var start_cells = controls_values[ca.controls.START_CELLS].split(',');
             for (var i in start_cells) {
                 start_cells[i] = parseInt(start_cells[i].trim());
                 if (start_cells[i] > width)
                     throw new Error("Cell number too high");
             }
-            var rule_nbr = document.getElementById('rule_number').value;
+            var rule_nbr = controls_values[ca.controls.RULE];
             var sim = new ca.Simulator(rule_nbr, width, height, start_cells);
             sim.clear();
             sim.simulate();
@@ -99,5 +118,6 @@ ca = function() {
         }
     };
 
+    return ca;
 };
 ca();
