@@ -69,8 +69,6 @@ main.testing.run_tests = function(test_collection, opt_name) {
     return ret;
 };
 
-// Unit tests
-main.testing.tests = {};
 main.testing.run_module_tests = function(tests_object, module_name) {
     var global_variables_before = Object.keys(window);
 
@@ -89,16 +87,18 @@ main.testing.run_module_tests = function(tests_object, module_name) {
 };
 
 // Unit testing on the test framework.
-main.testing.tests.framework_tests = function() {
-    return main.testing.run_tests(main.testing.tests.framework_tests.tests, "TestingFrameworkTests")
+main.tests = {};
+
+main.tests.framework_test = function() {
+    return main.testing.run_tests(main.tests.framework_test.tests, "TestingFrameworkTests")
 };
 
-main.testing.tests.framework_tests.tests = {};
+main.tests.framework_test.tests = {};
 
-main.testing.tests.framework_tests.tests.assert_test = function() {
+main.tests.framework_test.tests.assert_test = function() {
     var return_false_func = function() { return false; }
     // Things that should pass assertion.
-    var passes = [true, -1, 1.23, "false", "0", "null", new Object(), Function, main.testing.tests.framework_tests.tests.assert_test, return_false_func];
+    var passes = [true, -1, 1.23, "false", "0", "null", new Object(), Function, main.tests.framework_test.tests.assert_test, return_false_func];
     for (var i in passes)
         main.testing.assert(passes[i]);
 
