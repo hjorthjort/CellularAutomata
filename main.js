@@ -3,6 +3,45 @@ main = function() {
     // Create new namespace.
     var main = {};
 
+    main.controls = {};
+
+    main.constants = {};
+    main.constants.CONTROLS = "controls";
+    main.constants.CONTROLS_PREFIX = "control_";
+    main.load_module = function(module) {
+        module_namespace = module();
+        main.module = module_namespace;
+        main.module.load();
+    };
+
+    main.run = function() {
+        var controls_values = {};
+        for (var key in main.controls) {
+            controls_values[key] = main.controls[key].value;
+        }
+        main.module.run(controls_values);
+    };
+
+    main.add_control = function(name, label_text, type, opt_default_value) {
+        var prefixed_name = main.constants.CONTROLS_PREFIX + name;
+        var label = document.createElement("label");
+        label.for = prefixed_name;
+        label.innerHTML = label_text;
+        document.getElementById("controls").appendChild(label);
+
+        var input = document.createElement("input");
+        input.id = prefixed_name;
+        input.type = type;
+        input.value = opt_default_value;
+        document.getElementById("controls").appendChild(input);
+        main.controls[name] = input;
+    };
+
+    main.add_control_attribute = function(control_id, attribute, value) {
+        control_id = main.constants.CONTROLS_PREFIX + control_id;
+        document.getElementById(control_id)[attribute] = value;
+    };
+
     // Painter class.
 
     main.Painter = function(opt_width_cells, opt_height_cells) {
