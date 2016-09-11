@@ -71,6 +71,22 @@ main.testing.run_tests = function(test_collection, opt_name) {
 
 // Unit tests
 main.testing.tests = {};
+main.testing.run_module_tests = function(tests_object, module_name) {
+    var global_variables_before = Object.keys(window);
+
+    var test_results = main.testing.run_tests(tests_object);
+    if (test_results.passed)
+        console.log(module_name + ": Passed " + Object.keys(test_results.passed).length + ": ",
+            test_results.passed);
+    if (test_results.failed)
+        console.log(module_name + ": Failed " + Object.keys(test_results.failed).length + " tests:",
+            test_results.failed);
+    if (!test_results.passed && !test_results.failed)
+        console.log("No tests were run.");
+    var global_variables_after = Object.keys(window);
+    main.testing.assertArrayEqual(global_variables_before, global_variables_after,
+        module_name + ": The testing has leaked variables to global scope");
+};
 
 // Unit testing on the test framework.
 main.testing.tests.framework_tests = function() {
@@ -156,18 +172,4 @@ main.testing.tests.automaton_tests.tests.next_state_test = function() {
     return true;
 }
 
-// Run all tests.
-var global_variables_before = Object.keys(window);
-
-var test_results = main.testing.run_tests(main.testing.tests);
-if (test_results.passed)
-    console.log("Passed " + Object.keys(test_results.passed).length + ": ",
-        test_results.passed);
-if (test_results.failed)
-    console.log("Failed " + Object.keys(test_results.failed).length + " tests:",
-        test_results.failed);
-if (!test_results.passed && !test_results.failed)
-    console.log("No tests were run.");
-var global_variables_after = Object.keys(window);
-main.testing.assertArrayEqual(global_variables_before, global_variables_after,
-    "The testing has leaked variables to global scope");
+main.testing.run_module_tests(main.tests, "Main module tests");
