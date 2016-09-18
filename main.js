@@ -88,15 +88,15 @@ main = function() {
 
     main.Painter.prototype.clear = function() {
         this.canvas_context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
+    };
 
     main.Painter.prototype.getCanvasWidth = function() {
         return this.canvas.width;
-    }
+    };
 
     main.Painter.prototype.getCanvasHeight = function() {
         return this.canvas.height;
-    }
+    };
 
     window.main = main;
 

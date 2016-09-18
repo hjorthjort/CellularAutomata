@@ -24,7 +24,7 @@ ca = function() {
     ca.Automaton = function(rule, initial_arr) {
         this.state = initial_arr;
         this.rule = rule;
-    }
+    };
 
     ca.Automaton.prototype.nextState = function() {
         var newState = [];
@@ -34,11 +34,11 @@ ca = function() {
         newState.push(0);
         this.state = newState;
         return this.state;
-    }
+    };
 
     ca.Automaton.prototype.getState = function() {
         return this.state;
-    }
+    };
 
     // Create Wolfram rules.
 
@@ -49,7 +49,7 @@ ca = function() {
             var state = l * 4 + c * 2 + r;
             return (rule_number >> state) & 1;
         }
-    }
+    };
 
     // Simulator program.
 
@@ -66,13 +66,13 @@ ca = function() {
             initial[opt_start_cells[i]] = 1;
         this.automaton = new ca.Automaton(ca.RuleGenerator(rule_nbr), initial);
         this.paintRow(initial);
-    }
+    };
 
     ca.Simulator.prototype.VALUE_TO_COLOR_MAP = ['white', 'black'];
 
     ca.Simulator.prototype.paintNext = function() {
         this.paintRow(this.automaton.nextState());
-    }
+    };
 
     ca.Simulator.prototype.paintRow = function(array) {
         if (this.current_row > this.painter.getCanvasHeight())
@@ -86,17 +86,17 @@ ca = function() {
         }
         if (painted)
             this.current_row++;
-    }
+    };
 
     ca.Simulator.prototype.clear = function () {
         this.painter.clear();
         this.current_row = 0;
-    }
+    };
 
     ca.Simulator.prototype.simulate = function() {
         while (this.current_row <= this.painter.getCanvasHeight())
             this.paintNext();
-    }
+    };
     
     // Exposed functions.
     ca.run = function(controls_values) {

@@ -5,19 +5,19 @@ main.testing.AssertionError = Error;
 main.testing.assert = function(assertion, opt_message) {
     if (!assertion)
         throw new main.testing.AssertionError(opt_message);
-}
+};
 
 main.testing.assertEqual = function(obj1, obj2, opt_message) {
     if (obj1 != obj2 || (obj1.equals && obj1.equals(obj2)))
         throw new main.testing.AssertionError(opt_message);
-}
+};
 
 main.testing.assertArrayEqual = function(arr1, arr2, opt_message) {
     if (arr1.length !== arr2.length)
         throw new main.testing.AssertionError(opt_message);
     for (var i = 0; i < arr1.length; i++)
         main.testing.assertEqual(arr1[i], arr2[i], opt_message);
-}
+};
 
 main.testing.TestResult = function() {};
 
