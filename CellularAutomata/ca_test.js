@@ -9,39 +9,39 @@ ca.tests.automaton_tests.tests = {};
 
 // Test the correct implementation of the rule generator
 ca.tests.automaton_tests.tests.test_rule_generator = function() {
-    var aux = function(expected_results, generator) {
+    var aux = function(expected_results, rule) {
         for (var i = 0; i < 8; i++)
-            main.testing.assertEqual(expected_results[i], generator(i >> 2, (i >> 1) % 2, i % 2), "Failed on input " + i + ".");
+            main.testing.assertEqual(expected_results[i], rule(i >> 2, (i >> 1) % 2, i % 2), "Failed on input " + i + ".");
     }
     // Rule 0
-    var generator = new main.module.RuleGenerator(0);
+    var rule = new main.module.RuleGenerator(0);
     var results = [0, 0, 0, 0, 0, 0, 0, 0];
-    aux(results, generator);
+    aux(results, rule);
 
     // Rule 30
-    var generator = new main.module.RuleGenerator(30);
+    var rule = new main.module.RuleGenerator(30);
     var results = [0, 1, 1, 1, 1, 0, 0, 0];
-    aux(results, generator);
+    aux(results, rule);
 
     // Rule 31
-    var generator = new main.module.RuleGenerator(31);
+    var rule = new main.module.RuleGenerator(31);
     var results = [1, 1, 1, 1, 1, 0, 0, 0];
-    aux(results, generator);
+    aux(results, rule);
 
     // Rule 34
-    var generator = new main.module.RuleGenerator(34);
+    var rule = new main.module.RuleGenerator(34);
     var results = [0, 1, 0, 0, 0, 1, 0, 0];
-    aux(results, generator);
+    aux(results, rule);
 
     // Rule 110
-    var generator = new main.module.RuleGenerator(110);
+    var rule = new main.module.RuleGenerator(110);
     var results = [0, 1, 1, 1, 0, 1, 1, 0];
-    aux(results, generator);
+    aux(results, rule);
 
     // Rule 110
-    var generator = new main.module.RuleGenerator(250);
+    var rule = new main.module.RuleGenerator(250);
     var results = [0, 1, 0, 1, 1, 1, 1, 1];
-    aux(results, generator);
+    aux(results, rule);
 
     return true;
 };
