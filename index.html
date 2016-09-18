@@ -6,10 +6,9 @@
         <script src='main.js'></script>
         <script src='main_test.js'></script>
         <script src='CellularAutomata/ca.js'></script>
-        <script src='CellularAutomata/ca_test.js'></script>
     </head>
     <body>
-        <input type="button" value="Cellular Automata" onclick="main.load_module(ca);"></input>
+        <input type="button" value="Cellular Automata" onclick="main.load_module(ca, 'CellularAutomata/ca_test.js');"></input>
         <form id="controls" action="" onsubmit="main.run(); return false;">
             <input type="submit" value="Run"></input>
         </form>

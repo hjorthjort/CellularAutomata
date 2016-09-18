@@ -10,13 +10,23 @@ main = function() {
     main.constants.CONTROLS_PREFIX = "control_";
     main.constants.LABELS_PREFIX = "label_";
 
-    main.load_module = function(module) {
+    main.load_module = function(module, opt_testmodule) {
         // Clear out old controls.
         main.clear_controls();
 
         module_namespace = module();
         main.module = module_namespace;
         main.module.load();
+
+        if (opt_testmodule)
+            main.append_script(opt_testmodule)
+    };
+
+    main.append_script = function (filename) {
+        var test_tag = document.createElement('script');
+        test_tag.setAttribute('type', 'text/javascript');
+        test_tag.setAttribute('src', filename);
+        document.getElementsByTagName('head')[0].appendChild(test_tag);
     };
 
     main.run = function() {
