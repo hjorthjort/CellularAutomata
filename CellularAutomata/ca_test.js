@@ -14,22 +14,22 @@ ca.tests.automaton_tests.tests.test_rule_generator = function() {
             main.testing.assertEqual(expected_results[i], generator(i >> 2, (i >> 1) % 2, i % 2), "Failed on input " + i + ".");
     }
     // Rule 0
-    var generator = new ca.RuleGenerator(0);
+    var generator = new main.module.RuleGenerator(0);
     var results = [0, 0, 0, 0, 0, 0, 0, 0];
     aux(results, generator);
 
     // Rule 30
-    var generator = new ca.RuleGenerator(30);
+    var generator = new main.module.RuleGenerator(30);
     var results = [0, 1, 1, 1, 1, 0, 0, 0];
     aux(results, generator);
 
     // Rule 110
-    var generator = new ca.RuleGenerator(110);
+    var generator = new main.module.RuleGenerator(110);
     var results = [0, 1, 1, 1, 0, 1, 1, 0];
     aux(results, generator);
 
     // Rule 110
-    var generator = new ca.RuleGenerator(250);
+    var generator = new main.module.RuleGenerator(250);
     var results = [0, 1, 0, 1, 1, 1, 1, 1];
     aux(results, generator);
 
@@ -51,7 +51,7 @@ ca.tests.automaton_tests.tests.next_state_test = function() {
         [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
         [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
     ];
-    var automaton = new ca.Automaton(new ca.RuleGenerator(10), rule10correct[0]);
+    var automaton = new main.module.Automaton(new main.module.RuleGenerator(10), rule10correct[0]);
     for (var i = 0; i < rule10correct.length; i++) {
         if (!verify_identical(rule10correct[i], automaton.getState()))
             return false;
