@@ -23,6 +23,16 @@ ca.tests.automaton_tests.tests.test_rule_generator = function() {
     var results = [0, 1, 1, 1, 1, 0, 0, 0];
     aux(results, generator);
 
+    // Rule 31
+    var generator = new main.module.RuleGenerator(31);
+    var results = [1, 1, 1, 1, 1, 0, 0, 0];
+    aux(results, generator);
+
+    // Rule 34
+    var generator = new main.module.RuleGenerator(34);
+    var results = [0, 1, 0, 0, 0, 1, 0, 0];
+    aux(results, generator);
+
     // Rule 110
     var generator = new main.module.RuleGenerator(110);
     var results = [0, 1, 1, 1, 0, 1, 1, 0];
