@@ -9,7 +9,7 @@ main.testing.assert = function(assertion, opt_message) {
 
 main.testing.assertEqual = function(obj1, obj2, opt_message) {
     if (obj1 != obj2 || (obj1.equals && obj1.equals(obj2)))
-        throw new main.testing.AssertionError(opt_message);
+        throw new main.testing.AssertionError("Expexted " + obj1 + " but got " + obj2 +". Message:" + opt_message);
 };
 
 main.testing.assertArrayEqual = function(arr1, arr2, opt_message) {

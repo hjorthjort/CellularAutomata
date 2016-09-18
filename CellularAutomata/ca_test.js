@@ -11,7 +11,7 @@ ca.tests.automaton_tests.tests = {};
 ca.tests.automaton_tests.tests.test_rule_generator = function() {
     var aux = function(expected_results, generator) {
         for (var i = 0; i < 8; i++)
-            main.testing.assertEqual(expected_results[i], generator(i >> 2, (i >> 1) % 2, i % 2), "Fail");
+            main.testing.assertEqual(expected_results[i], generator(i >> 2, (i >> 1) % 2, i % 2), "Failed on input " + i + ".");
     }
     // Rule 0
     var generator = new ca.RuleGenerator(0);
