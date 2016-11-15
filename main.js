@@ -82,8 +82,8 @@ main = function() {
             CELL_DEFAULT_COLOR: 'black',
         };
 
-        var width_cells = opt_width_cells ? opt_width_cells : this.Constants_.CANVAS_DEFAULT_WIDTH_PX;
-        var height_cells = opt_height_cells ? opt_height_cells : this.Constants_.CANVAS_DEFAULT_HEIGHT_PX;
+        var width_cells = opt_width_cells || this.Constants_.CANVAS_DEFAULT_WIDTH_PX;
+        var height_cells = opt_height_cells || this.Constants_.CANVAS_DEFAULT_HEIGHT_PX;
 
         this.canvas.width = width_cells;
         this.canvas.height = height_cells;
@@ -91,7 +91,7 @@ main = function() {
     }; // End constructor.
 
     main.Painter.prototype.paintCell_ = function(x, y, color) {
-        color = color ? color : this.Constants_.CELL_DEFAULT_COLOR;
+        color = color || this.Constants_.CELL_DEFAULT_COLOR;
         this.canvas_context.fillStyle = color;
         this.canvas_context.fillRect(x, y, 1, 1);
     };
