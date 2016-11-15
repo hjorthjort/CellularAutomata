@@ -77,15 +77,12 @@ ca = function() {
     ca.Simulator.prototype.paintRow = function(array) {
         if (this.current_row > this.painter.getCanvasHeight())
             throw new Error('Too many rows');
-        var painted = false;
         var canvas_width = this.painter.getCanvasWidth();
         for (var i = 0; i < array.length && i <= canvas_width; i++) {
-            painted = painted | array[i];
             var color = this.VALUE_TO_COLOR_MAP[array[i]];
             this.painter.paintCell_(i, this.current_row, color);
         }
-        if (painted)
-            this.current_row++;
+        this.current_row++;
     };
 
     ca.Simulator.prototype.clear = function () {
