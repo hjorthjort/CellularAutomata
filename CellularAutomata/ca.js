@@ -13,7 +13,7 @@ ca = function() {
     ca.load = function() {
         main.add_control(ca.controls.WIDTH, "Width (number of cells)", "number", 1000);
         main.add_control(ca.controls.HEIGHT, "Height (number of cells)", "number", 1000);
-        main.add_control(ca.controls.START_CELLS, "Start cell(s)", "number", 500);
+        main.add_control(ca.controls.START_CELLS, "Start cell(s)", "text", 500);
         main.add_control(ca.controls.RULE, "Rule number", "number", 110);
         main.add_control_attribute(ca.controls.RULE, "min-value", "0");
         main.add_control_attribute(ca.controls.RULE, "max-value", "255");
